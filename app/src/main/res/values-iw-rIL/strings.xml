@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GetEat</string>
+    <string name="phone_number" translatable="false">מספר טלפון</string>
+    <string name="next">הבא</string>
+    <string name="verification_code">קוד</string>
+    <string name="ok">OK</string>
+    <string name="name">שם</string>
+    <string name="search">חיפוש</string>
+    <string name="delivery_search">חיפוש שליח</string>
+    <string name="my_orders">ההזמנות שלי</string>
+    <string name="pick_up_address">כתובת איסוף</string>
+    <string name="order_number">מספר הזמנה</string>
+    <string name="pick_up_time">שעת איסוף</string>
+    <string name="pick_up_date">תאריך איסוף</string>
+    <string name="become_a_courier">Become A Courier</string>
+    <string name="your_address">כתובת</string>
+    <string name="nick_name">כינוי</string>
+    <string name="sign_out">יציאה</string>
+    <string name="num_of_orders_so_far">הזמנות עד כה</string>
+    <string name="courier_price">מחיר:</string>
+    <string name="report">דווח</string>
+</resources>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.Fragment_DetailsForm">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="60dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/loginDetails_IMG_profileImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+
+                android:scaleType="centerCrop"
+                android:src="@drawable/user" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="78dp"
+                android:layout_marginTop="78dp"
+                app:cardCornerRadius="50dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/loginDetails_IMG_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/edit_photo"
+                    app:srcCompat="@drawable/pen_edit" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginDetails_LAY_address"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="50dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/your_address"
+            android:textColorHint="@color/red_700">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginDetails_EDT_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textPostalAddress"
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".2">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginDetails_LAY_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="50dp"
+            android:hint="@string/nick_name"
+            android:textColorHint="@color/red_700">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginDetails_EDT_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textPersonName"
+
+                android:textStyle="bold" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginDetails_BTN_next"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/red_200"
+            android:text="@string/next"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:cornerRadius="50dp"
+            app:strokeColor="@color/black" />
+    </RelativeLayout>
+</LinearLayout>

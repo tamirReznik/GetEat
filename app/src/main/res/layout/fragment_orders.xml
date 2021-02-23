@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_background_portrait"
+    android:theme="@style/ThemeOverlay.GetEat.FullscreenContainer"
+    tools:context=".fragments.Fragment_Orders">
+
+    <ImageView
+        android:id="@+id/init_IMG_courier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/active_courier" />
+
+    <ImageView
+        android:id="@+id/init_IMG_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.4"
+        android:src="@drawable/fast_food" />
+
+    <TextView
+        android:id="@+id/init_TXT_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:keepScreenOn="true"
+        android:shadowColor="#DA1A1A"
+        android:text="@string/geteat"
+        android:textColor="?attr/fullscreenTextColor"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

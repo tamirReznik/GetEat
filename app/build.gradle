@@ -1,0 +1,105 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+    id "androidx.navigation.safeargs"
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.college.geteat"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+ 
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.navigation:navigation-fragment:2.3.3'
+    implementation 'androidx.navigation:navigation-ui:2.3.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.wear:wear:1.1.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database:19.6.0'
+
+    implementation 'androidx.browser:browser:1.3.0'
+
+    //google material
+    implementation 'com.google.android.material:material:1.3.0'
+
+    //Gson - json tool
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Glide - image loading library
+    implementation 'com.github.bumptech.glide:annotations:4.11.0'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.0.0') {
+        exclude group: 'glide-parent'
+    }
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //google maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    //ObservableScrollView
+    implementation 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+
+    //location autocomplete
+    implementation 'com.google.android.libraries.places:places:2.4.0'
+
+    implementation 'com.google.android.gms:play-services-basement:17.6.0'
+
+    // Full GeoFire library for Realtime Database users
+    implementation 'com.firebase:geofire-android:3.1.0'
+
+    // GeoFire utililty functions for Cloud Firestore users who
+    // want to implement their own geo solution, see:
+    // https://firebase.google.com/docs/firestore/solutions/geoqueries
+    implementation 'com.firebase:geofire-android-common:3.1.0'
+    compileOnly 'com.google.android.wearable:wearable:2.8.1'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+
+    // Declare the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-storage'
+
+    //image picker
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.2'
+    // for experimental rx picker
+    implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.4.2'
+
+
+
+}

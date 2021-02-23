@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_MainScreen">
+    <fragment
+        android:id="@+id/fragment_MainScreen"
+        android:name="com.college.geteat.fragments.Fragment_MainScreen"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_fragment_MainScreen_to_fragment_SearchForm"
+            app:destination="@id/fragment_SearchForm"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out" />
+        <argument
+            android:name="registerFlag"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_fragment_MainScreen_to_fragment_CourierDetails"
+            app:destination="@id/fragment_CourierDetails"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out"/>
+        <action
+            android:id="@+id/action_fragment_MainScreen_to_ordersFragment"
+            app:destination="@id/ordersFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_SearchForm"
+        android:name="com.college.geteat.fragments.Fragment_SearchForm"
+        android:label="fragment_search_form"
+        tools:layout="@layout/fragment_search_form" >
+        <action
+            android:id="@+id/action_fragment_SearchForm_to_fragment_SearchResults"
+            app:destination="@id/fragment_SearchResults"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_SearchResults"
+        android:name="com.college.geteat.fragments.Fragment_SearchResults"
+        android:label="fragment_search_results"
+        tools:layout="@layout/fragment_search_results" >
+        <argument
+            android:name="order"
+            app:argType="com.college.geteat.entity.Order" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_CourierDetails"
+        android:name="com.college.geteat.fragments.Fragment_CourierDetails"
+        android:label="fragment__courier_details"
+        tools:layout="@layout/fragment__courier_details" >
+        <action
+            android:id="@+id/action_fragment_CourierDetails_to_fragment_MainScreen"
+            app:destination="@id/fragment_MainScreen"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out"/>
+        <argument
+            android:name="flag"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.college.geteat.fragments.Fragment_Orders"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
+</navigation>

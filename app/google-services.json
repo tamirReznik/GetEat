@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "994028979479",
+    "firebase_url": "https://geteat8-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "geteat8",
+    "storage_bucket": "geteat8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994028979479:android:e78e8ec484c6fea2516352",
+        "android_client_info": {
+          "package_name": "com.college.geteat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994028979479-iliil4h7bst4m5h6kdrlp2avp5godrgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.college.geteat",
+            "certificate_hash": "ead367a0997ac1568e24f717d1e1ef1640002900"
+          }
+        },
+        {
+          "client_id": "994028979479-kc62065gkrnv759eneqo8qgid7am0aus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaAfYta3xXWxt3S21Fy0iOS1L3hxp38WQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994028979479-kc62065gkrnv759eneqo8qgid7am0aus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

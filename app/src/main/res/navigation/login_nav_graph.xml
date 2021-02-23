@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_nav_graph"
+    app:startDestination="@id/fragment_Login2">
+
+    <fragment
+        android:id="@+id/fragment_Login2"
+        android:name="com.college.geteat.fragments.Fragment_Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragment_Login2_to_fragment_DetailsForm"
+            app:destination="@id/fragment_DetailsForm"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_DetailsForm"
+        android:name="com.college.geteat.fragments.Fragment_DetailsForm"
+        android:label="fragment__details_form"
+        tools:layout="@layout/fragment__details_form" >
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </fragment>
+</navigation>

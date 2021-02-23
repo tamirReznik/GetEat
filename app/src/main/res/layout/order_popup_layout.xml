@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/matt_black"
+    android:orientation="vertical">
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="285dp"
+    android:alpha="0.05"
+    android:src="@drawable/active_courier"/>
+
+    <TextView
+        android:id="@+id/order_LBL_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:text="@string/new_order"
+        android:textColor="@color/red_200"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/order_LBL_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_LBL_headline"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:text="@string/order_number"
+        android:textColor="@color/red_200"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/order_LBL_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_LBL_number"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:text="@string/from"
+        android:textColor="@color/red_200"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/order_LBL_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_LBL_from"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:text="@string/to"
+        android:textColor="@color/red_200"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_LBL_to"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/order_BTN_decline"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red_200"
+            android:text="@string/decline"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:cornerRadius="50dp"
+            app:strokeColor="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/order_BTN_getEat"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="#60A32D"
+            android:text="@string/geteat"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:cornerRadius="50dp"
+            app:strokeColor="@color/black" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/order_BTN_ok"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/order_LBL_to"
+        android:visibility="gone"
+        android:backgroundTint="#60A32D"
+        android:text="@string/geteat"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:cornerRadius="50dp"
+        app:strokeColor="@color/black" />
+
+</RelativeLayout>

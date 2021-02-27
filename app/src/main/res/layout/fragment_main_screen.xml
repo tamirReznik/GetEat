@@ -29,6 +29,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:layout_centerHorizontal="true"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="20dp"

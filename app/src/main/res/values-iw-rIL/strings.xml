@@ -20,4 +20,12 @@
     <string name="num_of_orders_so_far">הזמנות עד כה</string>
     <string name="courier_price">מחיר:</string>
     <string name="report">דווח</string>
+    <string name="update_your_name">עדכון שם</string>
+    <string name="order_declined">הזמנה נדחתה</string>
+    <string name="order_approved">הזמנה אושרה</string>
+    <string name="decline">סרב</string>
+    <string name="new_order">הזמנה חדשה</string>
+    <string name="sign_in_cancelled">התחברות בוטלה</string>
+    <string name="no_internet_connection">אין חיבור לאינטרנט</string>
+    <string name="unknown_error">שגיאה לא ידועה</string>
 </resources>

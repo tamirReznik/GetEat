@@ -10,7 +10,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,11 +27,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 import com.college.geteat.R;
 import com.college.geteat.activities.LoginActivity;
+import com.college.geteat.entity.Client;
 import com.college.geteat.entity.Courier;
 import com.college.geteat.entity.Order;
 import com.college.geteat.utils.DB_Keys;
@@ -43,8 +41,6 @@ import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,7 +69,7 @@ public class Fragment_MainScreen extends Fragment {
     private ImageView main_LBL_mode;
     private ImageView main_IMG_profileImage, main_IMG_edit;
 
-    private Courier currentCourier;
+        private Courier currentCourier;
     private boolean isCourierActive = false, courierIsExist;
     private String uid;
     private LocationManager locationManager;
@@ -86,9 +82,36 @@ public class Fragment_MainScreen extends Fragment {
         // Required empty public constructor
     }
 
-    public void openCourierDetailsFragment() {
+    public void writeCourierProfileToDB() {
 
-        NavHostFragment.findNavController(this).navigate(R.id.action_fragment_MainScreen_to_fragment_CourierDetails);
+        Log.i("pttt", "writeCourierProfileToDB: ");
+        DatabaseReference clientRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.USERS, DB_Keys.CLIENTS, uid));
+        clientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Client client = snapshot.getValue(Client.class);
+
+                    assert client != null;
+                    Courier courier = new Courier()
+                            .setName(client.getName())
+                            .setUid(uid)
+                            .setRank(0)
+                            .setOrderCounter(0)
+                            .setLatLng(client.getLatLng());
+
+
+                    DatabaseReference courierRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.USERS, DB_Keys.COURIERS));
+                    courierRef.child(DB_Keys.COURIERS_PROFILES).child(uid).setValue(courier);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
@@ -137,7 +160,7 @@ public class Fragment_MainScreen extends Fragment {
 
         handleSwitchBtn();
 
-        view.findViewById(R.id.main_BTN_orders).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_fragment_MainScreen_to_ordersFragment));
+        view.findViewById(R.id.main_BTN_orders).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_fragment_MainScreen_to_fragment_ClientOrders));
 
         view.findViewById(R.id.main_BTN_search).setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_fragment_MainScreen_to_fragment_SearchForm));
 
@@ -149,41 +172,46 @@ public class Fragment_MainScreen extends Fragment {
     }
 
 
-    private void handleSwitchBtn(){
-        main_SWT_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isCourierActive = isChecked;
+    private void handleSwitchBtn() {
+        main_SWT_mode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            isCourierActive = isChecked;
 
-                if (courierIsExist) {
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference(Utils.generateFireBaseDBPath(DB_Keys.USERS, DB_Keys.COURIERS, DB_Keys.COURIERS_PROFILES, uid)).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.exists()) {
+                        writeCourierProfileToDB();
+                    }
+
                     if (isChecked) {
                         if (!Utils.isLocationPermGranted(requireActivity())) {
+                            Log.i("pttt", "isLocationPermGranted: ");
                             isCourierActive = false;
                             main_SWT_mode.setChecked(false);
                             Toast.makeText(requireContext(), "Location Permissions Required", Toast.LENGTH_SHORT).show();
                         } else {
-                            Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            @SuppressLint("MissingPermission") Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             geoFireActiveCouriersRef.setLocation(uid, new GeoLocation(currentLocation.getLatitude(), currentLocation.getLongitude()));
                         }
                     } else {
                         geoFireActiveCouriersRef.removeLocation(uid);
                     }
 
-                } else {
 
-                    geoFireActiveCouriersRef.removeLocation(uid);
-                    main_SWT_mode.setChecked(false);
-                    openCourierDetailsFragment();
+                    if (isCourierActive) {
+                        main_LBL_mode.setImageResource(R.drawable.active_courier);
+                    } else {
+                        main_LBL_mode.setImageResource(R.drawable.inactive_courier);
+                    }
                 }
 
-                if (isCourierActive) {
-                    main_LBL_mode.setImageResource(R.drawable.active_courier);
-                } else {
-                    main_LBL_mode.setImageResource(R.drawable.inactive_courier);
-                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
+                }
+            });
         });
     }
 
@@ -238,41 +266,37 @@ public class Fragment_MainScreen extends Fragment {
 
         DatabaseReference approvedOrderRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.ORDERS, DB_Keys.RESPONSE, currentOrder.getCourierID()));
 
-        order_BTN_getEat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        order_BTN_getEat.setOnClickListener(v -> {
 
-                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.ORDERS));
-                GeoFire activeOrderGeoFire = new GeoFire(ordersRef.child(DB_Keys.ACTIVE_ORDERS).child(DB_Keys.TRACKER));
-                GeoFire pendingOrderGeoFire = new GeoFire(ordersRef.child(DB_Keys.PENDING_ORDERS));
+            DatabaseReference orderInfoRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.ORDERS, DB_Keys.DETAILS));
+            orderInfoRef.child(currentOrder.getClientID()).child(DB_Keys.AS_CLIENT).child(currentOrder.getDateCreated()).setValue(currentOrder);
+            orderInfoRef.child(currentOrder.getCourierID()).child(DB_Keys.AS_COURIER).child(currentOrder.getDateCreated()).setValue(currentOrder);
 
-                //order been approved - no more pending
-                pendingOrderGeoFire.removeLocation(uid);
 
-                @SuppressLint("MissingPermission") Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                activeOrderGeoFire.setLocation(uid, new GeoLocation(currentLocation.getLatitude(), currentLocation.getLongitude()));
+            DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.ORDERS));
+            GeoFire activeOrderGeoFire = new GeoFire(ordersRef.child(DB_Keys.ACTIVE_ORDERS).child(DB_Keys.TRACKER));
+            GeoFire pendingOrderGeoFire = new GeoFire(ordersRef.child(DB_Keys.PENDING_ORDERS));
+
+            //order been approved - no more pending
+            pendingOrderGeoFire.removeLocation(uid);
+
+            @SuppressLint("MissingPermission") Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            activeOrderGeoFire.setLocation(uid, new GeoLocation(currentLocation.getLatitude(), currentLocation.getLongitude()));
 //                notify client about accept
-                approvedOrderRef.setValue(true);
-                orderPopUp.dismiss();
+            approvedOrderRef.setValue(true);
+            orderPopUp.dismiss();
 
-            }
         });
-        orderPopUp.findViewById(R.id.order_BTN_decline).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.ORDERS));
-                GeoFire pendingOrderGeoFire = new GeoFire(ordersRef.child(DB_Keys.PENDING_ORDERS));
-                //order been decline - no more pending
-                pendingOrderGeoFire.removeLocation(uid);
+        orderPopUp.findViewById(R.id.order_BTN_decline).setOnClickListener(v -> {
+            DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.ORDERS));
+            GeoFire pendingOrderGeoFire = new GeoFire(ordersRef.child(DB_Keys.PENDING_ORDERS));
+            //order been decline - no more pending
+            pendingOrderGeoFire.removeLocation(uid);
 
-                DatabaseReference orderInfoRef = FirebaseDatabase.getInstance().getReference(Utils.generateFireBaseDBPath(DB_Keys.ORDERS, DB_Keys.ACTIVE_ORDERS, DB_Keys.DETAILS));
 
-                orderInfoRef.child(currentOrder.getClientID()).child(DB_Keys.AS_CLIENT).child(currentOrder.getDateCreated()).setValue(currentOrder);
-                orderInfoRef.child(currentOrder.getCourierID()).child(DB_Keys.AS_COURIER).child(currentOrder.getDateCreated()).setValue(currentOrder);
-                //notify client about decline
-                approvedOrderRef.setValue(false);
-                orderPopUp.dismiss();
-            }
+            //notify client about decline
+            approvedOrderRef.setValue(false);
+            orderPopUp.dismiss();
         });
 
         orderPopUp.setCanceledOnTouchOutside(false);
@@ -333,46 +357,31 @@ public class Fragment_MainScreen extends Fragment {
     }
 
 
-
-
     private void initModeSwitch() {
         main_LBL_mode.setOnClickListener(v -> {
-            if (isCourierActive) {
-                openCourierDetailsFragment();
-            }
+            Log.i("pttt", "initModeSwitch: ");
+
+            Navigation.findNavController(v).navigate(R.id.action_fragment_MainScreen_to_fragment_details_update);
+
         });
     }
 
     private void initEditProfilePic() {
-        main_IMG_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ImagePicker
-                        .create(Fragment_MainScreen.this) // Activity or Fragment
-                        .limit(1)
-                        .showCamera(false)
-                        .start();
-            }
-        });
+        main_IMG_edit.setOnClickListener(v -> ImagePicker
+                .create(Fragment_MainScreen.this) // Activity or Fragment
+                .limit(1)
+                .showCamera(false)
+                .start());
     }
 
     private void initProfilePic() {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference(uid);
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                if (uri != null) {
-                    Glide.with(requireContext()).load(uri).centerCrop().into(main_IMG_profileImage);
-                }
+        storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+            if (uri != null) {
+                Glide.with(requireContext()).load(uri).centerCrop().into(main_IMG_profileImage);
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i("pttt", "onFailure: " + e.getMessage());
-            }
-        });
+        }).addOnFailureListener(e -> Log.i("pttt", "onFailure: " + e.getMessage()));
 
     }
 

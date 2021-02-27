@@ -13,14 +13,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.college.geteat.R;
 import com.college.geteat.utils.DB_Keys;
-import com.college.geteat.utils.SharedPreferencesManager;
 import com.college.geteat.utils.Utils;
 import com.firebase.geofire.GeoFire;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 public class MainScreenActivity extends AppCompatActivity {
     private LocationManager locationManager;
+    private GeoFire geoFire;
     private static final int LOCATION_REFRESH_TIME = 1000;
     private static final int LOCATION_REFRESH_DISTANCE = 2;
     private static final int REQUEST_CODE = 101;
@@ -29,7 +35,7 @@ public class MainScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-//        initLocation();
+        initLocation();
 
     }
 
@@ -49,8 +55,8 @@ public class MainScreenActivity extends AppCompatActivity {
                 LOCATION_REFRESH_DISTANCE, new LocationListener() {
                     @Override
                     public void onLocationChanged(@NonNull Location location) {
-                        SharedPreferencesManager.write(SharedPreferencesManager.LAT, Double.toString(location.getLatitude()));
-                        SharedPreferencesManager.write(SharedPreferencesManager.LON, Double.toString(location.getLongitude()));
+//                        SharedPreferencesManager.write(SharedPreferencesManager.LAT, Double.toString(location.getLatitude()));
+//                        SharedPreferencesManager.write(SharedPreferencesManager.LON, Double.toString(location.getLongitude()));
                         Log.i("onLocationChan", "onLocationChanged: " + location.getLatitude() + " lon: " + location.getLongitude());
                     }
 
@@ -91,8 +97,24 @@ public class MainScreenActivity extends AppCompatActivity {
                 .getInstance()
                 .getReference(Utils.generateFireBaseDBPath(DB_Keys.USERS, DB_Keys.COURIERS, DB_Keys.ACTIVE_COURIERS));
 
-        GeoFire geoFire = new GeoFire(ref);
-        geoFire.removeLocation(Utils.uid);
+            ref.child(Objects.requireNonNull(Utils.uid)).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        geoFire = new GeoFire(ref);
+                        geoFire.removeLocation(FirebaseAuth.getInstance().getUid());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+
+
     }
 
     @Override

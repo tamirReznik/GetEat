@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_background_portrait"
+    android:theme="@style/ThemeOverlay.GetEat.FullscreenContainer"
+    tools:context=".fragments.Fragment_DetailsUpdate">
+
+    <ImageView
+        android:id="@+id/anim_IMG_courier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/active_courier"
+        android:contentDescription="@string/courier_logo" />
+
+    <ImageView
+        android:id="@+id/anim_IMG_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="2dp"
+        android:alpha="0.4"
+        android:src="@drawable/fast_food"
+        android:contentDescription="@string/background" />
+
+    <TextView
+        android:id="@+id/anim_TXT_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:keepScreenOn="true"
+        android:shadowColor="#DA1A1A"
+        android:text="@string/get_eat"
+        android:textColor="?attr/fullscreenTextColor"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <!-- <com.google.android.material.button.MaterialButton
+         android:id="@+id/orders_BTN_couriers"
+         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_centerInParent="true"
+         android:backgroundTint="@color/lightGreen"
+         android:text="Courier Orders"
+         android:textColor="@color/black"
+         android:layout_margin="40dp"
+         android:textSize="20sp"
+         android:textStyle="bold|italic"
+         app:cornerRadius="50dp"
+         app:strokeColor="@color/black" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/anim_LAY_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/anim_BTN_clients"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:hint="@string/nick_name"
+        android:textColorHint="@color/lightGreen"
+        app:boxStrokeColor="@color/lightGreen"
+        app:helperTextTextColor="@color/lightGreen"
+        android:visibility="gone"
+        app:hintTextColor="@color/lightGreen"
+        app:placeholderTextColor="@color/lightGreen">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/anim_EDT_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textPersonName"
+
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/anim_BTN_clients"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        android:backgroundTint="@color/lightGreen"
+        android:text="@string/update_your_name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:cornerRadius="50dp"
+        app:strokeColor="@color/black" />
+
+</RelativeLayout>

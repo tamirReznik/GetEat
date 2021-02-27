@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/img_background_portrait"
     android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
@@ -24,7 +24,6 @@
         android:id="@+id/search_IMG_back"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.2"
         android:contentDescription="@string/search_fragment_background" />
 
     <ImageView
@@ -53,7 +52,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="@string/pick_up_address"
-            android:textColorHint="@color/red_700">
+            android:textColorHint="@color/orange"
+            app:boxStrokeColor="@color/orange"
+            app:helperTextTextColor="@color/orange"
+            app:hintTextColor="@color/orange">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_EDT_address"
@@ -63,6 +65,7 @@
                 android:ems="10"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="textPostalAddress"
+                android:textColor="@color/orange"
                 android:textStyle="bold" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -73,9 +76,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:textColorHint="@color/orange"
+            app:boxStrokeColor="@color/orange"
+            app:helperTextTextColor="@color/orange"
+            app:hintTextColor="@color/orange"
             android:hint="@string/order_number"
-            android:padding="10dp"
-            android:textColorHint="@color/red_700">
+            android:padding="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_EDT_order"
@@ -84,6 +90,7 @@
                 android:layout_marginTop="12dp"
                 android:ems="10"
                 android:imeOptions="flagNoExtractUi"
+                android:textColor="@color/orange"
                 android:inputType="number"
                 android:textStyle="bold" />
 
@@ -100,7 +107,7 @@
             android:drawablePadding="10dp"
             android:ellipsize="end"
             android:text="@string/pick_up_date"
-            android:textColor="@color/red_200"
+            android:textColor="@color/orange"
             android:textSize="25sp"
             android:textStyle="bold|italic"
             app:drawableStartCompat="@drawable/ic_date" />
@@ -117,7 +124,7 @@
             android:ellipsize="end"
 
             android:text="@string/pick_up_time"
-            android:textColor="@color/red_200"
+            android:textColor="@color/orange"
             android:textSize="25sp"
             android:textStyle="bold|italic"
             app:drawableStartCompat="@drawable/ic_clock" />

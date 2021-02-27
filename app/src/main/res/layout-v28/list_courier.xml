@@ -14,12 +14,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGreen"
+        android:background="#770081E3"
         android:padding="12dp"
         tools:context=".MainActivity">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/post_IMG_user"
+            android:id="@+id/courierTab_IMG_profile"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:background="#FFF000"
@@ -27,58 +27,27 @@
             app:shapeAppearanceOverlay="@style/circleImageView" />
 
         <TextView
-            android:id="@+id/post_LBL_name"
+            android:id="@+id/courierTab_LBL_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/post_IMG_user"
+            android:layout_alignTop="@+id/courierTab_IMG_profile"
             android:layout_marginStart="12dp"
-            android:layout_toEndOf="@+id/post_IMG_user"
+            android:layout_toEndOf="@+id/courierTab_IMG_profile"
             android:text="@string/name"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/post_LBL_counter"
+            android:id="@+id/courierTab_LBL_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/post_LBL_name"
-            android:layout_alignStart="@id/post_LBL_name"
+            android:layout_below="@id/courierTab_LBL_name"
+            android:layout_alignStart="@id/courierTab_LBL_name"
             android:layout_marginTop="4dp"
             android:text="@string/num_of_orders_so_far"
             android:textColor="@color/matt_black"
             android:textSize="14sp" />
-
-
-        <TextView
-            android:id="@+id/post_LBL_estimate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/post_IMG_user"
-            android:layout_alignStart="@id/post_IMG_user"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:padding="5dp"
-            android:text="@string/eta"
-            android:textColor="#000000"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/post_LBL_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/post_LBL_estimate"
-            android:layout_alignStart="@id/post_IMG_user"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:padding="5dp"
-            android:text="@string/courier_price"
-            android:textColor="#000000"
-            android:textSize="18sp" />
-
-
 
 
         <!--   <TextView
@@ -93,10 +62,10 @@
                android:textSize="14sp" />
    -->
         <RatingBar
-            android:id="@+id/post_RTB_rank"
+            android:id="@+id/courierTab_RTB_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/post_LBL_price"
+            android:layout_below="@+id/courierTab_LBL_counter"
             android:layout_centerHorizontal="true"
             android:isIndicator="true"
             android:layout_marginTop="10dp"
@@ -104,15 +73,6 @@
             android:progressTint="@color/gold_star"
             android:rating="4.3" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/post_BTN_report"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-
-            android:text="@string/report"
-            android:textSize="12sp" />
 
     </RelativeLayout>
 

@@ -19,13 +19,13 @@
             app:argType="string"
             app:nullable="true" />
         <action
-            android:id="@+id/action_fragment_MainScreen_to_fragment_CourierDetails"
-            app:destination="@id/fragment_CourierDetails"
+            android:id="@+id/action_fragment_MainScreen_to_fragment_ClientOrders"
+            app:destination="@id/fragment_ClientOrders"
             app:enterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:popExitAnim="@android:anim/fade_out" />
         <action
-            android:id="@+id/action_fragment_MainScreen_to_ordersFragment"
-            app:destination="@id/ordersFragment"
+            android:id="@+id/action_fragment_MainScreen_to_fragment_details_update"
+            app:destination="@id/fragment_details_update"
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/fade_out" />
 
@@ -51,23 +51,19 @@
             app:argType="com.college.geteat.entity.Order" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_CourierDetails"
-        android:name="com.college.geteat.fragments.Fragment_CourierDetails"
-        android:label="fragment__courier_details"
-        tools:layout="@layout/fragment__courier_details" >
+        android:id="@+id/fragment_details_update"
+        android:name="com.college.geteat.fragments.Fragment_DetailsUpdate"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_details_update" >
         <action
-            android:id="@+id/action_fragment_CourierDetails_to_fragment_MainScreen"
+            android:id="@+id/action_ordersFragment_to_fragment_MainScreen"
             app:destination="@id/fragment_MainScreen"
             app:enterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/fade_out"/>
-        <argument
-            android:name="flag"
-            app:argType="string"
-            app:nullable="true" />
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
-        android:id="@+id/ordersFragment"
-        android:name="com.college.geteat.fragments.Fragment_Orders"
-        android:label="fragment_orders"
-        tools:layout="@layout/fragment_orders" />
+        android:id="@+id/fragment_ClientOrders"
+        android:name="com.college.geteat.fragments.Fragment_ClientOrders"
+        android:label="fragment__client_orders"
+        tools:layout="@layout/fragment__client_orders" />
 </navigation>

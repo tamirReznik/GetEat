@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.college.geteat.Adapter_Courier;
+import com.college.geteat.adapters.Adapter_Courier;
 import com.college.geteat.R;
 import com.college.geteat.activities.MainScreenActivity;
 import com.college.geteat.entity.Courier;
@@ -53,10 +53,6 @@ import static java.lang.String.format;
 
 public class Fragment_SearchResults extends Fragment {
 
-//    final int ITEM_LOAD_COUNT = 5;
-//    int total_item = 0, last_visible_item;
-//    boolean isLoading = false, isMaxData = false;
-//    String last_node = "", last_key = "";
 
     private ObservableRecyclerView main_LST_names;
     private ActionBar actionBar;
@@ -67,11 +63,10 @@ public class Fragment_SearchResults extends Fragment {
     private HashSet<String> couriersKeys;
     private ValueEventListener fetchCourierProfile;
     private String uid;
-    int numOfCouriersLastFetch;
+    private int numOfCouriersLastFetch;
     private ValueEventListener orderApprovedListener;
-    ObservableRecyclerView recyclerView;
 
-    ObservableScrollViewCallbacks observableScrollViewCallbacks;
+    private ObservableScrollViewCallbacks observableScrollViewCallbacks;
 
 
     public Fragment_SearchResults() {
@@ -82,6 +77,7 @@ public class Fragment_SearchResults extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        assert getArguments() != null;
         order = Fragment_SearchResultsArgs.fromBundle(getArguments()).getOrder();
         Log.i("pttt", "onCreate: " + order.toString());
         uid = FirebaseAuth.getInstance().getUid();
@@ -100,9 +96,10 @@ public class Fragment_SearchResults extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("pttt", "onDataChange: ");
-                if (snapshot != null) {
+                if (snapshot.exists()) {
 
                     Courier courier = snapshot.getValue(Courier.class);
+                    assert courier != null;
                     Log.i("pttt", "onDataChange: " + courier.getName());
                     if (!couriers.contains(courier)) {
                         Log.i("pttt", "onDataChange: " + couriers.size());
@@ -195,6 +192,7 @@ public class Fragment_SearchResults extends Fragment {
             public void onItemClick(View view, int position) {
 
                 Courier chosenC = adapter_courier.getItem(position);
+                order.setCourierName(chosenC.getName());
                 order.setCourierID(chosenC.getUid());
                 order.setClientID(uid);
                 order.setDateCreated(new Date().toString());
@@ -267,18 +265,13 @@ public class Fragment_SearchResults extends Fragment {
                     assert destAddress != null;
                     ((TextView) courierResponseDialog.findViewById(R.id.order_LBL_to)).setText(format("To: %s", destAddress.get(0).getAddressLine(0)));
 
-                    ((MaterialButton) courierResponseDialog.findViewById(R.id.order_BTN_decline)).setVisibility(View.GONE);
-                    ((MaterialButton) courierResponseDialog.findViewById(R.id.order_BTN_getEat)).setVisibility(View.GONE);
+                    courierResponseDialog.findViewById(R.id.order_BTN_decline).setVisibility(View.GONE);
+                    courierResponseDialog.findViewById(R.id.order_BTN_getEat).setVisibility(View.GONE);
 
                     MaterialButton order_BTN_ok = courierResponseDialog.findViewById(R.id.order_BTN_ok);
                     order_BTN_ok.setText(R.string.ok);
                     order_BTN_ok.setVisibility(View.VISIBLE);
-                    order_BTN_ok.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            courierResponseDialog.dismiss();
-                        }
-                    });
+                    order_BTN_ok.setOnClickListener(v -> courierResponseDialog.dismiss());
 
                     int response = isApproved ? R.string.order_approved : R.string.order_declined;
                     int color = isApproved ? R.color.lightGreen : R.color.red_200;

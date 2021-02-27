@@ -47,6 +47,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Fragment_SearchForm extends Fragment {
 
@@ -82,7 +83,9 @@ public class Fragment_SearchForm extends Fragment {
                 if (snapshot.getValue() != null) {
                     Client client = snapshot.getValue(Client.class);
 
-                    Order order = new Order(uid, orderNumber, new MyLatLng(pickUpPlace.getLatLng()), client.getLatLng());
+                    assert client != null;
+                    Order order = new Order(uid, orderNumber, new MyLatLng(Objects.requireNonNull(pickUpPlace.getLatLng())), client.getLatLng());
+                    order.setClientName(client.getName());
                     navigateToSearchResultsFragment(order);
 
                     isDateTimeValid = false;
@@ -150,10 +153,10 @@ public class Fragment_SearchForm extends Fragment {
     }
 
     private boolean isInputValid() {
-        if (!isDateTimeValid) {
-            Toast.makeText(requireContext(), "Must Pick Date And Time First", Toast.LENGTH_LONG).show();
-            return false;
-        }
+//        if (!isDateTimeValid) {
+//            Toast.makeText(requireContext(), "Must Pick Date And Time First", Toast.LENGTH_LONG).show();
+//            return false;
+//        }
 
         if (pickUpPlace == null) {
             Toast.makeText(requireContext(), "Must Pick Place First", Toast.LENGTH_LONG).show();
@@ -240,6 +243,7 @@ public class Fragment_SearchForm extends Fragment {
     public void initClockPicker(View view) {
 
         TextView search_EDT_time = view.findViewById(R.id.search_EDT_time);
+        search_EDT_time.setVisibility(View.GONE);
         search_EDT_time.setOnClickListener(v -> {
             //Initialize time picker dialog
             if (this.search_EDT_date.getText().equals(getResources().getString(R.string.pick_up_date))) {
@@ -293,7 +297,7 @@ public class Fragment_SearchForm extends Fragment {
             timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
             timePickerDialog.updateTime(timePicker_hour, timePicker_minute);
-            timePickerDialog.show();
+//            timePickerDialog.show();
         });
     }
 
@@ -304,6 +308,7 @@ public class Fragment_SearchForm extends Fragment {
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         search_EDT_date = view.findViewById(R.id.search_LBL_date);
+        search_EDT_date.setVisibility(View.GONE);
         search_EDT_date.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(),
                     R.style.DateAndTimePickerTheme, setListener, year, month, day);
@@ -314,7 +319,7 @@ public class Fragment_SearchForm extends Fragment {
 
             c.add(Calendar.DATE, 7); // Adding 7 days
             datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
-            datePickerDialog.show();
+//            datePickerDialog.show();
         });
 
         setListener = new DatePickerDialog.OnDateSetListener() {

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8F101010"
+        android:padding="12dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/orderTab_IMG_profile"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="#FFF000"
+            android:src="@drawable/player_boy"
+            app:shapeAppearanceOverlay="@style/circleImageView" />
+
+        <TextView
+            android:id="@+id/orderTab_LBL_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/orderTab_IMG_profile"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/orderTab_IMG_profile"
+            android:text="@string/name"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/orderTab_LBL_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/orderTab_LBL_name"
+            android:layout_alignStart="@id/orderTab_LBL_name"
+            android:layout_marginTop="4dp"
+            android:text="@string/pick_up_date"
+            android:textColor="@color/matt_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/orderTab_LBL_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/orderTab_IMG_profile"
+            android:layout_alignStart="@id/orderTab_IMG_profile"
+            android:layout_margin="10dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="@string/order_number"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/orderTab_LBL_from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/orderTab_LBL_number"
+            android:layout_alignStart="@id/orderTab_IMG_profile"
+            android:layout_margin="10dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="@string/from"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/orderTab_LBL_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/orderTab_LBL_from"
+            android:layout_alignStart="@id/orderTab_IMG_profile"
+            android:layout_margin="10dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="@string/to"
+            android:textColor="#000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/orderTab_LBL_to"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/orderTab_LBL_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:gravity="center"
+                android:text="@string/rating"
+                android:textColor="@color/matt_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".9">
+
+                <RatingBar
+                    android:id="@+id/orderTab_RTB_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:numStars="5"
+                    android:progressTint="@color/gold_star"
+                    android:rating="4" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/orderTab_LBL_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:gravity="center"
+                android:text="@string/votersCounter"
+                android:textColor="@color/matt_black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/orderTab_BTN_report"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/report"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

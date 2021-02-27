@@ -5,9 +5,15 @@ import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.Date;
-
 public class Order implements Parcelable {
+
+
+
+    private String courierName;
+    private String ClientName;
+
+
+    private boolean hasRated;
     private String clientID;
     private String courierID;
     private String orderNumber;
@@ -22,17 +28,7 @@ public class Order implements Parcelable {
         this.target = target;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "clientID='" + clientID + '\'' +
-                ", courierID='" + courierID + '\'' +
-                ", orderNumber='" + orderNumber + '\'' +
-                ", dateCreated='" + dateCreated + '\'' +
-                ", establishment=" + establishment +
-                ", target=" + target +
-                '}';
-    }
+
 
     public Order() {
     }
@@ -115,6 +111,44 @@ public class Order implements Parcelable {
         this.dateCreated = dateCreated;
     }
 
+    public String getCourierName() {
+        return courierName;
+    }
+
+    public void setCourierName(String courierName) {
+        this.courierName = courierName;
+    }
+
+    public String getClientName() {
+        return ClientName;
+    }
+
+    public void setClientName(String clientName) {
+        ClientName = clientName;
+    }
+    @Override
+    public String toString() {
+        return "Order{" +
+                "courierName='" + courierName + '\'' +
+                ", ClientName='" + ClientName + '\'' +
+                ", hasRated=" + hasRated +
+                ", clientID='" + clientID + '\'' +
+                ", courierID='" + courierID + '\'' +
+                ", orderNumber='" + orderNumber + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", establishment=" + establishment +
+                ", target=" + target +
+                '}';
+    }
+
+    public boolean isHasRated() {
+        return hasRated;
+    }
+
+    public void setHasRated(boolean hasRated) {
+        this.hasRated = hasRated;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -122,6 +156,9 @@ public class Order implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(courierName);
+        dest.writeString(ClientName);
+        dest.writeByte((byte) (hasRated ? 1 : 0));
         dest.writeString(clientID);
         dest.writeString(courierID);
         dest.writeString(orderNumber);
@@ -129,131 +166,4 @@ public class Order implements Parcelable {
         dest.writeParcelable(establishment, flags);
         dest.writeParcelable(target, flags);
     }
-
-
-//    public Order(String clientID, String courierID, int orderNumber, Place establishment, Place target, Date dateCreated, Date pickUpDate) {
-//        this.clientID = clientID;
-//        this.courierID = courierID;
-//        this.orderNumber = orderNumber;
-//        this.dateCreated = dateCreated;
-//        this.pickUpDate = pickUpDate;
-//    }
-//
-//    private Date dateCreated;
-//    private Date pickUpDate;
-//
-//    public Order() {
-//    }
-//
-//    public Order(String clientID, Place establishment, Date pickUpDate) {
-//        this.clientID = clientID;
-//        this.establishment = establishment;
-//        this.pickUpDate = pickUpDate;
-//    }
-//
-//    public Order(String clientID, Place target, Place establishment, Date pickUpDate) {
-//        this.clientID = clientID;
-//        this.establishment = establishment;
-//        this.pickUpDate = pickUpDate;
-//        this.target = target;
-//    }
-//
-//    protected Order(Parcel in) {
-//        orderNumber = in.readInt();
-//        establishment = in.readParcelable(Place.class.getClassLoader());
-//    }
-//
-//    public static final Creator<Order> CREATOR = new Creator<Order>() {
-//        @Override
-//        public Order createFromParcel(Parcel in) {
-//            return new Order(in);
-//        }
-//
-//        @Override
-//        public Order[] newArray(int size) {
-//            return new Order[size];
-//        }
-//    };
-//
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeInt(orderNumber);
-//        dest.writeParcelable(establishment, flags);
-//    }
-//
-//
-//    public Place getTarget() {
-//        return target;
-//    }
-//
-//    public void setTarget(Place target) {
-//        this.target = target;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Order{" +
-//                "clientID='" + clientID + '\'' +
-//                ", courierID='" + courierID + '\'' +
-//                ", orderNumber=" + orderNumber +
-//                ", establishment=" + establishment +
-//                ", target=" + target +
-//                ", dateCreated=" + dateCreated +
-//                ", pickUpDate=" + pickUpDate +
-//                '}';
-//    }
-//
-//    public String getClientID() {
-//        return clientID;
-//    }
-//
-//    public void setClientID(String clientID) {
-//        this.clientID = clientID;
-//    }
-//
-//    public String getCourierID() {
-//        return courierID;
-//    }
-//
-//    public void setCourierID(String courierID) {
-//        this.courierID = courierID;
-//    }
-//
-//    public int getOrderNumber() {
-//        return orderNumber;
-//    }
-//
-//    public void setOrderNumber(int orderNumber) {
-//        this.orderNumber = orderNumber;
-//    }
-//
-//    public Place getEstablishment() {
-//        return establishment;
-//    }
-//
-//    public void setEstablishment(Place establishment) {
-//        this.establishment = establishment;
-//    }
-//
-//    public Date getDateCreated() {
-//        return dateCreated;
-//    }
-//
-//    public void setDateCreated(Date dateCreated) {
-//        this.dateCreated = dateCreated;
-//    }
-//
-//    public Date getPickUpDate() {
-//        return pickUpDate;
-//    }
-//
-//    public void setPickUpDate(Date pickUpDate) {
-//        this.pickUpDate = pickUpDate;
-//    }
-
 }

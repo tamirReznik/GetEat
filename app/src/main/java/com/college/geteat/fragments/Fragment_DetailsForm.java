@@ -19,7 +19,6 @@ import com.college.geteat.activities.MainScreenActivity;
 import com.college.geteat.entity.Client;
 import com.college.geteat.entity.MyLatLng;
 import com.college.geteat.utils.DB_Keys;
-import com.college.geteat.utils.SharedPreferencesManager;
 import com.college.geteat.utils.Utils;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
@@ -46,7 +45,6 @@ public class Fragment_DetailsForm extends Fragment {
 
     private Place userPlace;
     private ImageView loginDetails_IMG_edit;
-    private String selectedImagePath;
     private MaterialButton loginDetails_BTN_next;
     private AppCompatImageView loginDetails_IMG_profileImage;
     private TextInputEditText loginDetails_EDT_name;
@@ -83,17 +81,11 @@ public class Fragment_DetailsForm extends Fragment {
     }
 
     private void initEditProfilePic() {
-        loginDetails_IMG_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ImagePicker
-                        .create(Fragment_DetailsForm.this) // Activity or Fragment
-                        .limit(1)
-                        .showCamera(false)
-                        .start();
-            }
-        });
+        loginDetails_IMG_edit.setOnClickListener(v -> ImagePicker
+                .create(Fragment_DetailsForm.this) // Activity or Fragment
+                .limit(1)
+                .showCamera(false)
+                .start());
     }
 
 
@@ -112,15 +104,13 @@ public class Fragment_DetailsForm extends Fragment {
             String uid = Fragment_DetailsFormArgs.fromBundle(getArguments()).getUid();
             Client client = new Client()
                     .setName(name)
-                    .setLatLng(Objects.requireNonNull(new MyLatLng(userPlace.getLatLng())));
+                    .setLatLng(new MyLatLng(Objects.requireNonNull(userPlace.getLatLng())));
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             String dbPath = Utils.generateFireBaseDBPath(DB_Keys.USERS, DB_Keys.CLIENTS, uid);
             DatabaseReference myRef = database.getReference(dbPath);
 
             myRef.setValue(client);
-
-            SharedPreferencesManager.write(DB_Keys.DB_STATE, DB_Keys.STATE.FULL_REGISTERED.name());
 
             Utils.startNewActivity(requireActivity(), MainScreenActivity.class);
 
@@ -162,11 +152,13 @@ public class Fragment_DetailsForm extends Fragment {
         if (requestCode == Utils.AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == Utils.RESULT_OK) {
 
+                assert data != null;
                 userPlace = Autocomplete.getPlaceFromIntent(data);
                 loginDetails_EDT_address.setText(userPlace.getName());
                 Log.i("pttt", "Place: " + userPlace.getName() + ", " + userPlace.getId() + " , " + userPlace.getLatLng());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
+                assert data != null;
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i("pttt", status.getStatusMessage());
             }
@@ -175,13 +167,12 @@ public class Fragment_DetailsForm extends Fragment {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             // get a single image only
             Image image = ImagePicker.getFirstImageOrNull(data);
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().getUid());
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
             storageRef.putFile(image.getUri());
             Glide.with(this)
                     .load(image.getUri())
                     .centerCrop()
                     .into(loginDetails_IMG_profileImage);
-//            loginDetails_IMG_profileImage.setImageURI(image.getUri());
 
             Log.i("pttt", "onActivityResult: " + image.getUri());
         }

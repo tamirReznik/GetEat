@@ -7,7 +7,7 @@
     tools:context=".fragments.Fragment_SearchResults">
 
     <!--
- -->
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/searchResult_LAY_topBar"
         android:layout_width="match_parent"
@@ -22,14 +22,13 @@
             app:navigationIcon="@drawable/ic_baseline_menu"
             app:title="GetEat" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout> -->
 
 
     <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
         android:id="@+id/searchResult_LST_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchResult_LAY_topBar"
         tools:listitem="@layout/list_courier" />
 
 
